@@ -109,7 +109,7 @@ with tab1:
              "Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale",
              "La sobriété numérique (utilisation durable et raisonnable du numérique)"]
     df1 = pd.DataFrame({"Beaucoup d'attention" : liste}, index = index)
-    df1.sort_values(by= "Beaucoup d'attention", ascending= False, inplace = True)
+    df1.sort_values(by= "Beaucoup d'attention", ascending=True, inplace = True)
     fig, ax = plt.subplots()
     df1.plot(kind='barh', ax=ax)
     st.subheader("**Synthèse des réponses « Beaucoup d'attention »**")
