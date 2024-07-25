@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 import openpyxl
 import xlsxwriter
 from io import BytesIO
@@ -22,14 +23,14 @@ sheet = "Secteurs"
 
 
 
-tab1, tab2, tab3 = st.tabs(["Graphiques", "Tableaux", "Téléchargment des données"])
+tab1, tab2, tab3 = st.tabs(["Par secteur", "Ensemble des secteurs", "Téléchargement des données"])
 
 with tab1:
     option = st.selectbox(
         "Veuillez sélectionner le secteur d'activité :",
         ("Social",
          "Santé, recherche médicale, aide aux malades",
-         "Humanitaire / solidarité internationale",
+         "Solidarité internationale",
          "Culture",
          "Environnement",
          "Sport",
@@ -37,22 +38,90 @@ with tab1:
          "Jeunesse, éducation populaire",
          "Autres"))
 
-    # Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?
-    table = pd.read_excel(fichier, sheet_name=sheet, skiprows=9, nrows=6, index_col=0)
-    #table = table.applymap(lambda x: f'{x * 100:.0f}')
-    fig_col = table[option]*100
-    #fig_col1 = fig_col.astype(int)
+    # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
+    table1 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=87,nrows= 3, index_col =0)
+    fig_col = table1[option]*100
     names = fig_col.index
-    "**Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?**"
+    st.subheader("Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?")
+    "**Les économies d'énergie (électricité, gaz,...) et de la ressource en eau**"
     fig = px.pie(fig_col, values = option, names = names, template = "plotly_dark")
     st.plotly_chart(fig, use_container_width = True)
+
+    # La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)
+    table2 = pd.read_excel(fichier, sheet_name=sheet, skiprows=95, nrows=3, index_col=0)
+    fig_col = table2[option] * 100
+    names = fig_col.index
+    "**La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)**"
+    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    st.plotly_chart(fig, use_container_width=True)
+
+    # La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)
+    table3 = pd.read_excel(fichier, sheet_name=sheet, skiprows=103, nrows=3, index_col=0)
+    fig_col = table3[option] * 100
+    names = fig_col.index
+    "**La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)**"
+    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Des achats responsables (en local, circuit-court...)
+    table4 = pd.read_excel(fichier, sheet_name=sheet, skiprows=111, nrows=3, index_col=0)
+    fig_col = table4[option] * 100
+    names = fig_col.index
+    "**Des achats responsables (en local, circuit-court...)**"
+    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)
+    table5 = pd.read_excel(fichier, sheet_name=sheet, skiprows=119, nrows=3, index_col=0)
+    fig_col = table5[option] * 100
+    names = fig_col.index
+    "**Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)**"
+    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale
+    table6 = pd.read_excel(fichier, sheet_name=sheet, skiprows=127, nrows=3, index_col=0)
+    fig_col = table6[option] * 100
+    names = fig_col.index
+    "**Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale**"
+    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    st.plotly_chart(fig, use_container_width=True)
+
+    # La sobriété numérique (utilisation durable et raisonnable du numérique)
+    table7 = pd.read_excel(fichier, sheet_name=sheet, skiprows=135, nrows=3, index_col=0)
+    fig_col = table7[option] * 100
+    names = fig_col.index
+    "**La sobriété numérique (utilisation durable et raisonnable du numérique)**"
+    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    st.plotly_chart(fig, use_container_width=True)
+
+    liste = []
+
+    for tab in (table1, table2, table3, table4, table5, table6, table7):
+        derniere_ligne = tab[option].iloc[-1]*100
+        liste.append(derniere_ligne)
+    liste
+    index = ["Les économies d'énergie (électricité, gaz,...) et de la ressource en eau",
+             "La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)",
+             "La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)",
+             "Des achats responsables (en local, circuit-court...)",
+             "Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)",
+             "Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale",
+             "La sobriété numérique (utilisation durable et raisonnable du numérique)"]
+    df1 = pd.DataFrame({"Beaucoup d'attention" : liste}, index = index)
+    df1.sort_values(by= "Beaucoup d'attention", ascending= False, inplace = True)
+    fig, ax = plt.subplots()
+    df1.plot(kind='barh', ax=ax)
+    ("**Synthèse des réponses « Beaucoup d'attention »**")
+    ax.set_xlabel("Valeurs (en %)")
+    st.pyplot(fig)
 
     table8 = pd.read_excel(fichier, sheet_name=sheet, skiprows=147, nrows=9, index_col=0)
     fig_col = table8[option]*100
     fig, ax = plt.subplots()
     fig_col.plot(kind='barh', ax = ax)
     ax.set_xlabel("Valeurs (en %)")
-    "**Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ?** *Plusieurs réponses possibles*"
+    st.subheader("**Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ?** *Plusieurs réponses possibles*")
     st.pyplot(fig)
 
 
@@ -98,7 +167,7 @@ table7 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=135,nrows= 5, inde
 table7 = table7.applymap(lambda x: f'{x * 100:.0f}%')
 
 # Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ? Plusieurs réponses possibles
-table8 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=147,nrows= 11, index_col =0, dtype = "object")
+table8 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=147,nrows= 9, index_col =0, dtype = "object")
 table8 = table8.applymap(lambda x: f'{x * 100:.0f}%')
 
 styled_table = table.style.set_properties(**{'text-align': 'center'})
