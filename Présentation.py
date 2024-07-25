@@ -19,7 +19,7 @@ st.sidebar.markdown("# Présentation")
 
 ("Résultats des non-employeurs redressés selon la méthode des quotas appliquée aux variables « secteur d’activité » et « budget » d’après les données du *Paysage associatif français* – 4ème édition 2023 – hors série Juris Associations.")
 
-("Résultats des employeurs redressés selon la méthode des quotas appliquée aux variables « secteur d’activité » et « tranche d’effectifs salariés », d’après les données 2023 de l’URSSAF Caisse nationale et de la Mutualité Sociale Agricole")
+("Résultats des employeurs redressés selon la méthode des quotas appliquée aux variables « secteur d’activité » et « tranche d’effectifs salariés », d’après les données 2023 de l’URSSAF Caisse nationale et de la Mutualité Sociale Agricole.")
 ("Ces échantillons robustes permettent de réaliser des analyses croisées et de tenir compte de la diversité du secteur associatif.")
 
 ("En cliquant dans le menu à gauche vous pouvez télécharger les résultats selon différents critères.")
