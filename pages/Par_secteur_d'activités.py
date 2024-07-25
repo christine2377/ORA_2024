@@ -44,7 +44,9 @@ with tab1:
     names = fig_col.index
     st.header("Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?")
     st.subheader("Les économies d'énergie (électricité, gaz,...) et de la ressource en eau")
-    fig = px.pie(fig_col, values = option, names = names, template = "plotly_dark")
+    fig = px.pie(fig_col, values = option, names = names, color = names , color_discrete_map = {"Beaucoup d'attention" : "darkblue",
+                                                                                                "Une attention modérée" : "royalblue",
+                                                                                                "Peu ou pas":"lightcyan"})
     st.plotly_chart(fig, use_container_width = True)
 
     # La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)
@@ -52,7 +54,9 @@ with tab1:
     fig_col = table2[option] * 100
     names = fig_col.index
     st.subheader("La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)")
-    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    fig = px.pie(fig_col, values=option, names=names, color = names , color_discrete_map = {"Beaucoup d'attention" : "darkblue",
+                                                                                                "Une attention modérée" : "royalblue",
+                                                                                                "Peu ou pas":"lightcyan"})
     st.plotly_chart(fig, use_container_width=True)
 
     # La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)
@@ -60,7 +64,9 @@ with tab1:
     fig_col = table3[option] * 100
     names = fig_col.index
     st.subheader("La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)")
-    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    fig = px.pie(fig_col, values=option, names=names, color = names , color_discrete_map = {"Beaucoup d'attention" : "darkblue",
+                                                                                                "Une attention modérée" : "royalblue",
+                                                                                                "Peu ou pas":"lightcyan"})
     st.plotly_chart(fig, use_container_width=True)
 
     # Des achats responsables (en local, circuit-court...)
@@ -68,7 +74,9 @@ with tab1:
     fig_col = table4[option] * 100
     names = fig_col.index
     st.subheader("Des achats responsables (en local, circuit-court...)")
-    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    fig = px.pie(fig_col, values=option, names=names, color = names , color_discrete_map = {"Beaucoup d'attention" : "darkblue",
+                                                                                                "Une attention modérée" : "royalblue",
+                                                                                                "Peu ou pas":"lightcyan"})
     st.plotly_chart(fig, use_container_width=True)
 
     # Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)
@@ -76,7 +84,9 @@ with tab1:
     fig_col = table5[option] * 100
     names = fig_col.index
     st.subheader("Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)")
-    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    fig = px.pie(fig_col, values=option, names=names, color = names , color_discrete_map = {"Beaucoup d'attention" : "darkblue",
+                                                                                                "Une attention modérée" : "royalblue",
+                                                                                                "Peu ou pas":"lightcyan"})
     st.plotly_chart(fig, use_container_width=True)
 
     # Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale
@@ -84,7 +94,9 @@ with tab1:
     fig_col = table6[option] * 100
     names = fig_col.index
     st.subheader("Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale")
-    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    fig = px.pie(fig_col, values=option, names=names, color = names , color_discrete_map = {"Beaucoup d'attention" : "darkblue",
+                                                                                                "Une attention modérée" : "royalblue",
+                                                                                                "Peu ou pas":"lightcyan"})
     st.plotly_chart(fig, use_container_width=True)
 
     # La sobriété numérique (utilisation durable et raisonnable du numérique)
@@ -92,7 +104,9 @@ with tab1:
     fig_col = table7[option] * 100
     names = fig_col.index
     st.subheader("La sobriété numérique (utilisation durable et raisonnable du numérique)")
-    fig = px.pie(fig_col, values=option, names=names, template="plotly_dark")
+    fig = px.pie(fig_col, values=option, names=names, color = names , color_discrete_map = {"Beaucoup d'attention" : "darkblue",
+                                                                                                "Une attention modérée" : "royalblue",
+                                                                                                "Peu ou pas":"lightcyan"})
     st.plotly_chart(fig, use_container_width=True)
 
     liste = []
