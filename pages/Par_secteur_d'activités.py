@@ -100,7 +100,7 @@ with tab1:
     for tab in (table1, table2, table3, table4, table5, table6, table7):
         derniere_ligne = tab[option].iloc[-1]*100
         liste.append(derniere_ligne)
-    liste
+
     index = ["Les économies d'énergie (électricité, gaz,...) et de la ressource en eau",
              "La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)",
              "La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)",
