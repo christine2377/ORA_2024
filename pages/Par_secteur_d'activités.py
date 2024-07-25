@@ -51,7 +51,7 @@ with tab1:
     fig_col = table8[option]*100
     fig, ax = plt.subplots()
     fig_col.plot(kind='barh', ax = ax)
-    ax.set_xlabel("Valeurs(en %)")
+    ax.set_xlabel("Valeurs (en %)")
     "**Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ?** *Plusieurs réponses possibles*"
     st.pyplot(fig)
 
