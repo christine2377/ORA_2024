@@ -38,10 +38,9 @@ with tab1:
     table = pd.read_excel(fichier, sheet_name=sheet, skiprows=9, nrows=9, index_col=0)
     table = table.applymap(lambda x: f'{x * 100:.0f}%')
     table= table.rename(columns = {"En ZFRR" : "En ZFRR*"})
-    table
     slice = [option]
     forme = table.style.set_properties(**{'background-color' : 'cornflowerblue', 'text-align': 'center', 'color' : "white"}, subset = slice)
-    st.table(forme)
+    st.write(forme)
 
     "\* Anciennement dans une zone de revitalisation rurale désormais appelée **France Ruralités Revitalisation** (ZFRR)"
 
