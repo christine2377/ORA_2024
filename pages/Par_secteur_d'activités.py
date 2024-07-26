@@ -43,6 +43,7 @@ with tab1:
     table = table.applymap(lambda x: f'{x * 100:.0f}%')
     slice = [option]
     forme = table.style.set_properties(**{'background-color' : 'cornflowerblue', 'text-align': 'center', 'color' : "white"}, subset = slice)
+    st.header("Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?")
     st.table(forme)
 
     # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
