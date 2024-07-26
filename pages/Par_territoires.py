@@ -32,7 +32,7 @@ with tab1:
          "En zone péri-urbaine",
          "En zone urbaine",
          "Dans un quartier politique de la ville",
-         "En ZFRR"))
+         "En ZFRR*"))
 
     # Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?
     table = pd.read_excel(fichier, sheet_name=sheet, skiprows=9, nrows=9, index_col=0)
