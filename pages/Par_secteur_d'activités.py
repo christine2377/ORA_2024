@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import matplotlib.pyplot as plt
+from tabulate import tabulate
 import plotly.graph_objects as go
 import openpyxl
 import xlsxwriter
@@ -37,6 +38,13 @@ with tab1:
          "Loisirs",
          "Jeunesse, éducation populaire",
          "Autres"))
+
+    # Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?
+    table = pd.read_excel(fichier, sheet_name=sheet, skiprows=9, nrows=9, index_col=0)
+    table = table.applymap(lambda x: f'{x * 100:.0f}%')
+    slice = [option]
+    forme = table.style.set_properties(**{'background-color' : 'cornflowerblue', 'text-align': 'center', 'color' : "white"}, subset = slice)
+    st.table(forme)
 
     # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
     table1 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=87,nrows= 3, index_col =0)
@@ -196,22 +204,22 @@ styled_table7 = table7.style.set_properties(**{'text-align': 'center'})
 styled_table8 = table8.style.set_properties(**{'text-align': 'center'})
 
 with tab2:
-    "**Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?**"
+    st.header("Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?")
     st.table(styled_table)
-    "**Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?**"
-    "Les économies d'énergie (électricité, gaz,...) et de la ressource en eau"
+    st.header("Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?")
+    st.subheader("Les économies d'énergie (électricité, gaz,...) et de la ressource en eau")
     st.table(styled_table1)
-    "La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)"
+    st.subheader("La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)")
     st.table(styled_table2)
-    "La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)"
+    st.subheader("La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)")
     st.table(styled_table3)
-    "Des achats responsables (en local, circuit-court...)"
+    st.subheader("Des achats responsables (en local, circuit-court...)")
     st.table(styled_table4)
-    "Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)"
+    st.subheader("Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)")
     st.table(styled_table5)
-    "Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale"
+    st.subheader("Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale")
     st.table(styled_table6)
-    "La sobriété numérique (utilisation durable et raisonnable du numérique)"
+    st.subheader("La sobriété numérique (utilisation durable et raisonnable du numérique)")
     st.table(styled_table7)
-    "**Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ?** *Plusieurs réponses possibles*"
+    st.header("Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ? *Plusieurs réponses possibles*")
     st.table(styled_table8)
