@@ -37,7 +37,7 @@ with tab1:
     # Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?
     table = pd.read_excel(fichier, sheet_name=sheet, skiprows=9, nrows=9, index_col=0)
     table = table.applymap(lambda x: f'{x * 100:.0f}%')
-    table= table.rename(columns = {"En ZFRR" : "En ZFRR\*"})
+    table= table.rename(columns = {"En ZFRR" : "En ZFRR*"})
     slice = [option]
     forme = table.style.set_properties(**{'background-color' : 'cornflowerblue', 'text-align': 'center', 'color' : "white"}, subset = slice)
     st.table(forme)
