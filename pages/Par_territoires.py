@@ -43,7 +43,7 @@ with tab1:
     forme = table.style.set_properties(**{'background-color' : 'cornflowerblue', 'text-align': 'center', 'color' : "white"}, subset = slice)
     st.table(forme)
 
-    "\* Anciennement dans une zone de revitalisation rurale désormais appelée **France Ruralités Revitalisation** (ZFRR)"
+    st.text("\* Anciennement dans une zone de revitalisation rurale désormais appelée **France Ruralités Revitalisation** (ZFRR)")
 
     # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
     table1 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=87,nrows= 3, index_col =0)
@@ -214,7 +214,7 @@ styled_table8 = table8.style.set_properties(**{'text-align': 'center'})
 with tab2:
     st.header("Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?")
     st.table(styled_table)
-    "\* Anciennement dans une zone de revitalisation rurale désormais appelée **France Ruralités Revitalisation** (ZFRR)"
+    st.text("\* Anciennement dans une zone de revitalisation rurale désormais appelée **France Ruralités Revitalisation** (ZFRR)")
     st.header("Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?")
     st.subheader("Les économies d'énergie (électricité, gaz,...) et de la ressource en eau")
     st.table(styled_table1)
