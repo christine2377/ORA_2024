@@ -23,7 +23,7 @@ sheet = "Secteurs"
 
 
 
-tab1, tab2, tab3 = st.tabs(["Par secteur", "Ensemble des secteurs", "Téléchargement des données"])
+tab1, tab2, tab3 = st.tabs(["Par secteur d'activités", "Ensemble des secteurs d'activités", "Téléchargement des données"])
 
 with tab1:
     option = st.selectbox(
