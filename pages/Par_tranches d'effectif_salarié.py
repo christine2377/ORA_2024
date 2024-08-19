@@ -3,6 +3,8 @@ warnings.filterwarnings('ignore')
 
 import pandas as pd
 import streamlit as st
+import plotly.express as px
+import matplotlib.pyplot as plt
 import openpyxl
 import xlsxwriter
 from io import BytesIO
@@ -17,6 +19,141 @@ st.sidebar.markdown("# Par nombre de salariés")
 
 fichier = "ORA_donnee.xlsx"
 sheet = "Salariés"
+
+tab1, tab2, tab3 = st.tabs(["Par tranches d'effectifs salariés", "Ensemble des tranches d'effectifs salariés ", "Téléchargement des données"])
+
+with tab1:
+    option = st.selectbox(
+        "**Veuillez sélectionner la tranche d'effectifs salariés:**",
+        ("1 ou 2 salariés",
+         "3 à 5 salariés",
+         "6 à 9 salariés",
+         "10 à 19 salariés",
+         "20 à 49 salariés",
+         "50 salariés et plus"))
+
+    # Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?
+    table = pd.read_excel( fichier, sheet_name = sheet ,skiprows=11,nrows= 8, index_col =0, dtype = "object")
+    table = table.applymap(lambda x: f'{x * 100:.0f}%')
+    slice = [option]
+    forme = table.style.set_properties(**{'background-color' : 'cornflowerblue', 'text-align': 'center', 'color' : "white"}, subset = slice)
+    st.header(
+        "Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?")
+    st.table(forme)
+
+
+    # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
+    #Les économies d'énergie (électricité, gaz,...) et de la ressource en eau
+    table1 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=89,nrows= 3, index_col =0, dtype = "object")
+    fig_col = table1[option] * 100
+    names = fig_col.index
+    st.header(
+        "Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?")
+    st.subheader("Les économies d'énergie (électricité, gaz,...) et de la ressource en eau")
+    fig = px.pie(fig_col, values=option, names=names, color=names, color_discrete_map={"Beaucoup d'attention": "darkblue",
+                                                                                       "Une attention modérée": "royalblue",
+                                                                                       "Peu ou pas": "lightcyan"})
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
+    #La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)
+    table2 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=97,nrows= 3, index_col =0, dtype = "object")
+    fig_col = table2[option] * 100
+    names = fig_col.index
+    st.subheader("La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)")
+    fig = px.pie(fig_col, values=option, names=names, color=names, color_discrete_map={"Beaucoup d'attention": "darkblue",
+                                                                                       "Une attention modérée": "royalblue",
+                                                                                       "Peu ou pas": "lightcyan"})
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
+    #La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)
+    table3 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=105,nrows= 3, index_col =0, dtype = "object")
+    fig_col = table3[option] * 100
+    names = fig_col.index
+    st.subheader("La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)")
+    fig = px.pie(fig_col, values=option, names=names, color=names, color_discrete_map={"Beaucoup d'attention": "darkblue",
+                                                                                       "Une attention modérée": "royalblue",
+                                                                                       "Peu ou pas": "lightcyan"})
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
+    #Des achats responsables (en local, circuit-court...)
+    table4 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=113,nrows= 3, index_col =0, dtype = "object")
+    fig_col = table4[option] * 100
+    names = fig_col.index
+    st.subheader("Des achats responsables (en local, circuit-court...)")
+    fig = px.pie(fig_col, values=option, names=names, color=names, color_discrete_map={"Beaucoup d'attention": "darkblue",
+                                                                                       "Une attention modérée": "royalblue",
+                                                                                       "Peu ou pas": "lightcyan"})
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
+    #Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)
+    table5 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=121,nrows= 3, index_col =0, dtype = "object")
+    fig_col = table5[option] * 100
+    names = fig_col.index
+    st.subheader("Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)")
+    fig = px.pie(fig_col, values=option, names=names, color=names, color_discrete_map={"Beaucoup d'attention": "darkblue",
+                                                                                       "Une attention modérée": "royalblue",
+                                                                                       "Peu ou pas": "lightcyan"})
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
+    #Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale
+    table6 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=129,nrows= 3, index_col =0, dtype = "object")
+    fig_col = table6[option] * 100
+    names = fig_col.index
+    st.subheader("Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale")
+    fig = px.pie(fig_col, values=option, names=names, color=names, color_discrete_map={"Beaucoup d'attention": "darkblue",
+                                                                                       "Une attention modérée": "royalblue",
+                                                                                       "Peu ou pas": "lightcyan"})
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?
+    #La sobriété numérique (utilisation durable et raisonnable du numérique)
+    table7 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=137,nrows= 3, index_col =0, dtype = "object")
+    fig_col = table7[option] * 100
+    names = fig_col.index
+    st.subheader("La sobriété numérique (utilisation durable et raisonnable du numérique)")
+    fig = px.pie(fig_col, values=option, names=names, color=names, color_discrete_map={"Beaucoup d'attention": "darkblue",
+                                                                                       "Une attention modérée": "royalblue",
+                                                                                       "Peu ou pas": "lightcyan"})
+    st.plotly_chart(fig, use_container_width=True)
+
+    liste = []
+
+    for tab in (table1, table2, table3, table4, table5, table6, table7):
+        derniere_ligne = tab[option].iloc[-1]*100
+        liste.append(derniere_ligne)
+
+    index = ["Les économies d'énergie (électricité, gaz,...) et de la ressource en eau",
+                "La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)",
+                "La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)",
+                "Des achats responsables (en local, circuit-court...)",
+                "Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)",
+                "Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale",
+                "La sobriété numérique (utilisation durable et raisonnable du numérique)"]
+    df1 = pd.DataFrame({"Beaucoup d'attention" : liste}, index = index)
+    df1.sort_values(by= "Beaucoup d'attention", ascending= True, inplace = True)
+    fig, ax = plt.subplots()
+    df1.plot(kind='barh', ax=ax)
+    st.subheader("**Synthèse des réponses « Beaucoup d'attention »**")
+    ax.set_xlabel("Valeurs (en %)")
+    st.pyplot(fig)
+
+    # Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ? Plusieurs réponses possibles
+    table8 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=148,nrows= 9, index_col =0, dtype = "object")
+    fig_col = table8[option]*100
+    fig_col.sort_values(ascending= True, inplace = True)
+    fig, ax = plt.subplots()
+    fig_col.plot(kind='barh', ax = ax)
+    ax.set_xlabel("Valeurs (en %)")
+    st.header("Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ? *Plusieurs réponses possibles*")
+    st.pyplot(fig)
+
+############################################################
+
 # Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?
 table = pd.read_excel( fichier, sheet_name = sheet ,skiprows=11,nrows= 8, index_col =0, dtype = "object")
 table = table.applymap(lambda x: f'{x * 100:.0f}%')
@@ -58,7 +195,7 @@ table7 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=137,nrows= 5, inde
 table7 = table7.applymap(lambda x: f'{x * 100:.0f}%')
 
 # Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ? Plusieurs réponses possibles
-table8 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=148,nrows= 11, index_col =0, dtype = "object")
+table8 = pd.read_excel( fichier, sheet_name = sheet ,skiprows=148,nrows= 9, index_col =0, dtype = "object")
 table8 = table8.applymap(lambda x: f'{x * 100:.0f}%')
 
 styled_table = table.style.set_properties(**{'text-align': 'center'})
@@ -71,23 +208,23 @@ styled_table6 = table6.style.set_properties(**{'text-align': 'center'})
 styled_table7 = table7.style.set_properties(**{'text-align': 'center'})
 styled_table8 = table8.style.set_properties(**{'text-align': 'center'})
 
-"**Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?**"
-st.table(styled_table)
-"**Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?**"
-"Les économies d'énergie (électricité, gaz,...) et de la ressource en eau"
-st.table(styled_table1)
-"La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)"
-st.table(styled_table2)
-"La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)"
-st.table(styled_table3)
-"Des achats responsables (en local, circuit-court...)"
-st.table(styled_table4)
-"Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)"
-st.table(styled_table5)
-"Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale"
-st.table(styled_table6)
-"La sobriété numérique (utilisation durable et raisonnable du numérique)"
-st.table(styled_table7)
-("**Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique "
- "dans ses activités et son fonctionnement ?** *Plusieurs réponses possibles*")
-st.table(styled_table8)
+with tab2:
+    st.header("Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?")
+    st.table(styled_table)
+    st.header("Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?")
+    st.subheader("Les économies d'énergie (électricité, gaz,...) et de la ressource en eau")
+    st.table(styled_table1)
+    st.subheader("La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)")
+    st.table(styled_table2)
+    st.subheader("La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)")
+    st.table(styled_table3)
+    st.subheader("Des achats responsables (en local, circuit-court...)")
+    st.table(styled_table4)
+    st.subheader("Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)")
+    st.table(styled_table5)
+    st.subheader("Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale")
+    st.table(styled_table6)
+    st.subheader("La sobriété numérique (utilisation durable et raisonnable du numérique)")
+    st.table(styled_table7)
+    st.header("Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ? *Plusieurs réponses possibles*")
+    st.table(styled_table8)
