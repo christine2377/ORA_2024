@@ -10,21 +10,21 @@ import xlsxwriter
 from io import BytesIO
 
 st.set_page_config(
-    page_title="ORA 2024 - Par nombre de salariés",
+    page_title="ORA 2024 - Par tranches d'effectif salarié",
     page_icon=	":chart_with_upwards_trend:",
     layout="wide")
 
-st.markdown("# Résultats par nombre de salariés")
-st.sidebar.markdown("# Par nombre de salariés")
+st.markdown("# Résultats par tranches d'effectif salarié")
+st.sidebar.markdown("# Par tranches d'effectif salarié")
 
 fichier = "ORA_donnee.xlsx"
 sheet = "Salariés"
 
-tab1, tab2, tab3 = st.tabs(["Par tranches d'effectifs salariés", "Ensemble des tranches d'effectifs salariés ", "Téléchargement des données"])
+tab1, tab2, tab3 = st.tabs(["Par tranches d'effectif salarié", "Ensemble des tranches d'effectif salarié ", "Téléchargement des données"])
 
 with tab1:
     option = st.selectbox(
-        "**Veuillez sélectionner la tranche d'effectifs salariés:**",
+        "**Veuillez sélectionner la tranche d'effectif salarié:**",
         ("1 ou 2 salariés",
          "3 à 5 salariés",
          "6 à 9 salariés",
