@@ -228,3 +228,77 @@ with tab2:
     st.table(styled_table7)
     st.header("Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ? *Plusieurs réponses possibles*")
     st.table(styled_table8)
+
+with tab3 :
+    #liste des questions pour l'onglet 2:
+    questions = ["Les économies d'énergie (électricité, gaz,...) et de la ressource en eau",
+                 "La limitation des déplacements, les transports collectifs et les mobilités douces (vélo…)",
+                 "La gestion des déchets (tri sélectif, moins d'emballage, biodéchets...)",
+                 "Des achats responsables (en local, circuit-court...)",
+                 "Le recours à des fournitures plus écologiques (papier recyclé, cartouches d'encre rechargeables...)",
+                 "Le réemploi, le recours aux recycleries et aux entreprises d'insertion à vocation environnementale",
+                 "La sobriété numérique (utilisation durable et raisonnable du numérique)"]
+
+    # Liste des tables
+    tables = [table1, table2, table3, table4, table5, table6, table7]
+
+
+    # Fonction pour créer un fichier Excel avec les questions et les tables
+    def to_excel(table, table8,tables, questions):
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+            workbook = writer.book
+
+            # Formats
+            bold_format = workbook.add_format({'bold': True, 'text_wrap': True})
+            border_format = workbook.add_format({'border': 1, 'text_wrap': True})
+            wrap_format = workbook.add_format({'text_wrap': True})
+            title_format = workbook.add_format({'bold': True, 'font_size': 14})
+
+            #onglet 1
+            worksheet1 = workbook.add_worksheet("Prise en compte des enjeux")
+            worksheet1.write(0, 0, "Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?", title_format)
+            for col_idx, col_name in enumerate(table.columns):
+                worksheet1.write(2, col_idx, col_name, bold_format)
+                worksheet1.set_column(col_idx, col_idx, 20)
+            for row_idx, data_row in enumerate(table.itertuples(index=False)):
+                for col_idx, value in enumerate(data_row):
+                    worksheet1.write(row_idx + 3, col_idx, value, border_format)
+
+            # Onglet 2 : Tables 1 à 7
+            worksheet2 = workbook.add_worksheet('Pratiques')
+            worksheet2.write(0, 0,
+                             "Quelle attention porte votre association aux pratiques suivantes dans la conduite de ses activités et dans son organisation ?",
+                             title_format)
+            row = 3
+            for title, table in zip(questions, tables):
+                worksheet2.write(row, 0, title, title_format)
+                row += 1
+                for col_idx, col_name in enumerate(table.columns):
+                    worksheet2.write(row + 1, col_idx, col_name, bold_format)
+                    worksheet2.set_column(col_idx, col_idx, 20)
+                for data_row in table.itertuples(index=False):
+                    row += 1
+                    for col_idx, value in enumerate(data_row):
+                        worksheet2.write(row + 1, col_idx, value, border_format)
+                row += 3
+
+            # Onglet 3 : Un seul tableau avec son titre
+            worksheet3 = workbook.add_worksheet('Aides pour la prise en compte')
+            worksheet3.write(0, 0, "Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ? *Plusieurs réponses possibles*", title_format)
+            for col_idx, col_name in enumerate(table8.columns):
+                worksheet3.write(2, col_idx, col_name, bold_format)
+                worksheet3.set_column(col_idx, col_idx, 20)
+            for row_idx, data_row in enumerate(table2.itertuples(index=False)):
+                for col_idx, value in enumerate(data_row):
+                    worksheet3.write(row_idx + 3, col_idx, value, border_format)
+
+        return output.getvalue()
+
+
+    # Bouton de téléchargement
+    tables = [table3, table4, table5, table6, table7]
+    excel_data = to_excel(table1, table2, tables, questions)
+    "Pour télécharger les données, cliquez sur le bouton."
+    st.download_button(label="Télécharger les données", data=excel_data, file_name="ORA2024-Transition_ecologique-Tranches_effectifs.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                       help="Cliquez ici pour télécharger les données au format XLSX")
