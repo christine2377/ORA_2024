@@ -311,7 +311,6 @@ with tab3 :
     # Bouton de téléchargement
     tables = [table1, table2, table3, table4, table5, table6, table7]
     excel_data = to_excel(table, tables, questions, table8)
-    excel_data = to_excel(table1, table2, tables, questions)
     "Pour télécharger les données, cliquez sur le bouton."
     st.download_button(label="Télécharger les données", data=excel_data, file_name="ORA2024-Transition_ecologique-Territoires.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                        help="Cliquez ici pour télécharger les données au format XLSX")
