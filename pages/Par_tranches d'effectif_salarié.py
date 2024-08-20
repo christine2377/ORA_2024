@@ -244,7 +244,7 @@ with tab3 :
 
 
     # Fonction pour créer un fichier Excel avec les questions et les tables
-    def to_excel(table, table8,tables, questions):
+    def to_excel(table, tables, questions, table8):
         output = BytesIO()
         with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
             workbook = writer.book
