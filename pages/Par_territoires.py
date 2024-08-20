@@ -271,9 +271,9 @@ with tab3 :
             worksheet1 = workbook.add_worksheet("Prise en compte des enjeux")
             worksheet1.write(0, 0, "Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?", title_format)
             for col_idx, col_name in enumerate(table.columns):
-                worksheet1.write(2, col_idx, col_name, bold_format)
-                worksheet1.set_column(col_idx, col_idx, 20)
-            for row_idx, data_row in enumerate(table.itertuples(index=False)):
+                worksheet1.write(2, col_idx+1, col_name, bold_format)
+                worksheet1.set_column(col_idx+1, col_idx, 20)
+            for row_idx, data_row in enumerate(table.itertuples(index=True)):
                 for col_idx, value in enumerate(data_row):
                     worksheet1.write(row_idx + 3, col_idx, value, border_format)
 
@@ -287,9 +287,9 @@ with tab3 :
                 worksheet2.write(row, 0, title, title_format)
                 row += 1
                 for col_idx, col_name in enumerate(table.columns):
-                    worksheet2.write(row + 1, col_idx, col_name, bold_format)
-                    worksheet2.set_column(col_idx, col_idx, 20)
-                for data_row in table.itertuples(index=False):
+                    worksheet2.write(row + 1, col_idx + 1, col_name, bold_format)
+                    worksheet2.set_column(col_idx+1, col_idx, 20)
+                for data_row in table.itertuples(index=True):
                     row += 1
                     for col_idx, value in enumerate(data_row):
                         worksheet2.write(row + 1, col_idx, value, border_format)
@@ -299,9 +299,9 @@ with tab3 :
             worksheet3 = workbook.add_worksheet('Aides pour la prise en compte')
             worksheet3.write(0, 0, "Qu'est-ce qui pourrait aider votre association à [mieux] prendre en compte les enjeux liés à la transition écologique dans ses activités et son fonctionnement ? *Plusieurs réponses possibles*", title_format)
             for col_idx, col_name in enumerate(table8.columns):
-                worksheet3.write(2, col_idx, col_name, bold_format)
-                worksheet3.set_column(col_idx, col_idx, 20)
-            for row_idx, data_row in enumerate(table2.itertuples(index=False)):
+                worksheet3.write(2, col_idx + 1, col_name, bold_format)
+                worksheet3.set_column(col_idx+1, col_idx, 20)
+            for row_idx, data_row in enumerate(table8.itertuples(index=True)):
                 for col_idx, value in enumerate(data_row):
                     worksheet3.write(row_idx + 3, col_idx, value, border_format)
 
@@ -309,7 +309,8 @@ with tab3 :
 
 
     # Bouton de téléchargement
-    tables = [table3, table4, table5, table6, table7]
+    tables = [table1, table2, table3, table4, table5, table6, table7]
+    excel_data = to_excel(table, tables, questions, table8)
     excel_data = to_excel(table1, table2, tables, questions)
     "Pour télécharger les données, cliquez sur le bouton."
     st.download_button(label="Télécharger les données", data=excel_data, file_name="ORA2024-Transition_ecologique-Territoires.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
