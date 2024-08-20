@@ -239,7 +239,7 @@ with tab3 :
 
 
     # Fonction pour créer un fichier Excel avec les questions et les tables
-    def to_excel(table, table8,tables, questions):
+    def to_excel(table, tables, questions, table8):
         output = BytesIO()
         with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
             workbook = writer.book
@@ -250,7 +250,7 @@ with tab3 :
             wrap_format = workbook.add_format({'text_wrap': True})
             title_format = workbook.add_format({'bold': True, 'font_size': 14})
 
-                        #onglet 1
+            #onglet 1
             worksheet1 = workbook.add_worksheet("Prise en compte des enjeux")
             worksheet1.write(0, 0, "Votre association prend-elle en compte les enjeux liés à la transition écologique pour mener à bien ses activités et organiser son action ?", title_format)
             for col_idx, col_name in enumerate(table.columns):
